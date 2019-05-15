@@ -18,9 +18,6 @@
 #include "audiomixer.h"
 #include "audiobuffer.h"
 
-#ifdef Q_OS_SYMBIAN
-#include "volumekeys.h"
-#endif
 
 /*!
   \class SamplePlayer
@@ -59,9 +56,7 @@ private:
     // Interface to the audio output backend.
     AudioInterface *m_audioIf;
 
-#ifdef Q_OS_SYMBIAN
-    VolumeKeys *m_volumeKeys;
-#endif
+
 };
 
 #endif // SAMPLEPLAYER_H

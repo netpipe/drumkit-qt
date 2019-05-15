@@ -2,7 +2,7 @@
  * Copyright (c) 2011 Nokia Corporation.
  */
 
-import QtQuick 1.0
+import QtQuick 2.0
 
 // A button that displays an animation when not pressed.
 // The animation is a png file where the frames are arranged

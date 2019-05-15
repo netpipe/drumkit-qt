@@ -2,7 +2,7 @@
  * Copyright (c) 2011 Nokia Corporation.
  */
 
-import QtQuick 1.0
+import QtQuick 2.0
 
 // A togglable button that can be enabled or disabled.
 Item {

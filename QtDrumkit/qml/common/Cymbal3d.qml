@@ -2,7 +2,7 @@
  * Copyright (c) 2011 Nokia Corporation.
  */
 
-import QtQuick 1.0
+import QtQuick 2.0
 
 // Cymbal pad for the 3d view. Provides a configurable swinging animation
 // when hit.

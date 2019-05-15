@@ -22,4 +22,5 @@ bld.inf
 *.sis
 *.mmp
 *.pkg
-.make.cache
+.make.cacheQtDrumkit/build
+build-QtDrumkit-Desktop_Qt_5_9_3_GCC_64bit-Debug

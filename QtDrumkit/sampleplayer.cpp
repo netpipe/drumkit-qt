@@ -59,13 +59,6 @@ SamplePlayer::SamplePlayer(QObject *parent)
     m_audioIf = new AudioPulseAudio(m_audioMixer, this);
 #endif
 
-#ifdef Q_OS_SYMBIAN
-    m_volumeKeys = new VolumeKeys(this);
-    connect(m_volumeKeys, SIGNAL(volumeKeyUp()),
-            this, SLOT(volumeUp()));
-    connect(m_volumeKeys, SIGNAL(volumeKeyDown()),
-            this, SLOT(volumeDown()));
-#endif
 
 
 }

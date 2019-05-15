@@ -2,7 +2,7 @@
  * Copyright (c) 2011 Nokia Corporation.
  */
 
-import QtQuick 1.0
+import QtQuick 2.0
 
 // Pad for the 3d view, provides a bouncy animation when pad is hit.
 Item {

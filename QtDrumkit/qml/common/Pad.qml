@@ -2,7 +2,7 @@
  * Copyright (c) 2011 Nokia Corporation.
  */
 
-import QtQuick 1.0
+import QtQuick 2.0
 
 // Instrument pad component.
 // Plays a specified sample when clicked.

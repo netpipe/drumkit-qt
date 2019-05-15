@@ -23,6 +23,7 @@ For more information about the implementation, see the project wiki page:
 https://github.com/nokia-developer/drumkit-qt/wiki
 
 
+
 PREREQUISITES
 -------------------------------------------------------------------------------
 
@@ -122,6 +123,11 @@ Compiling the examples;
    button.
 
 3. Compile or deploy the project. 
+
+
+**Add compilation for Ubuntu Touch**
+
+- in `QtDrumkit` folder, run `clickable -c qtc_packaging/ubuntu_touch/clickable.json`
 
 
 COMPATIBILITY

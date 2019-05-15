@@ -1,7 +1,8 @@
-CONFIG += mobility
-MOBILITY += multimedia
+QT += multimedia
 
 DEFINES -= GE_DEBUG
+
+INCLUDEPATH += $$PWD/src
 
 SOURCES += \
     $$PWD/src/audiobuffer.cpp \

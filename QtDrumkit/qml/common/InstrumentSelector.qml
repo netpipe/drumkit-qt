@@ -2,7 +2,7 @@
  * Copyright (c) 2011 Nokia Corporation.
  */
 
-import QtQuick 1.0
+import QtQuick 2.0
 
 // Instrument selector component.
 // Arranges InstrumentButtons on a circle and performs transitions.
@@ -36,6 +36,10 @@ Item {
 
     state: show ? "end" : "start"
     opacity: show ? 1.0 : 0
+
+    onShowChanged: {
+        show ? z=2: z=-2
+    }
 
     Behavior on opacity {
         PropertyAnimation { duration: 700; easing {type: Easing.OutQuad} }

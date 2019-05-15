@@ -9,60 +9,71 @@
  */
 
 #include <QDebug>
-#include <QtGui/QApplication>
-#include <QGLWidget>
-#include <QtDeclarative>
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
+//#include <QGLFormat>
 
-#include "qmlapplicationviewer.h"
 #include "drumengine.h"
-#include "qmlviewer.h"
-#include "touchevents.h"
+#include "toucheventfilter.h"
+//#include "touchevents.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
+    //QGLFormat fmt = QGLFormat::defaultFormat();
+    //fmt.setDirectRendering(true);
+    //fmt.setDoubleBuffer(true);
+
+    QGuiApplication app(argc, argv);
+    app.setOrganizationName("me.lduboeuf.drumkit");
+    app.setApplicationName("drumkit");
+
+
+
+
 
     // Register QML bindings fo DrumEngine and TouchEvents
-#ifdef Q_OS_SYMBIAN
-    qmlRegisterType<DrumEngine>("DrumEngine", 1,0, "DrumEngine");
-#endif
-    qmlRegisterType<TouchEvents>("TouchEvents", 1,0, "TouchEvents");
+//#ifdef Q_OS_UBUNTU_TOUCH
+ //   qmlRegisterType<DrumEngine>("DrumEngine", 1,0, "DrumEngine");
+//#endif
+    //qmlRegisterType<TouchEvents>("TouchEvents", 1,0, "TouchEvents");
 
-    QmlViewer viewer;
-    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockLandscape);
+    QQmlApplicationEngine engine;
+    QQmlContext *context = engine.rootContext();
 
-    // Check for VGA resolution and inform QML. Needed for some
-    // gfx layouting on on Symbian devices with VGA resolution (E6).
-    QDesktopWidget *desktop = QApplication::desktop();
-    const QRect screenRect = desktop->screenGeometry();
-    QDeclarativeContext* context = viewer.rootContext();
-    if (screenRect.width() == 640 && screenRect.height() == 480) {
-        context->setContextProperty("screenVGA", true);
-    } else {
-        context->setContextProperty("screenVGA", false);
-    }
 
-    // Provide information whether running in simulator. Used in Pad.qml.
+// Provide information whether running in simulator. Used in Pad.qml.
 #ifdef QT_SIMULATOR
     context->setContextProperty("simulator", true);
 #else
     context->setContextProperty("simulator", false);
 #endif
 
-    // Select the main.qml according to platform.
-#ifdef Q_OS_SYMBIAN
-    viewer.setMainQmlFile(QLatin1String("qml/symbian/main.qml"));
-#else
-    viewer.setMainQmlFile(QLatin1String("qml/harmattan/main.qml"));
-#endif
+
+    TouchEventFilter touchEventFilter;
+    context->setContextProperty("touchEventFilter", &touchEventFilter);
+
+    engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
+
+    if (engine.rootObjects().isEmpty())
+        return -1;
+    //intercept mouse event and propagate to ApplicationWindow
+    QObject *root = engine.rootObjects()[0];
+    root->installEventFilter(&touchEventFilter);
+
+    //viewer.setMainQmlFile(QLatin1String("qml/harmattan/main.qml"));
 
     // Enable OpenGL rendering
+    /*
     QGLFormat fmt = QGLFormat::defaultFormat();
     fmt.setDirectRendering(true);
     fmt.setDoubleBuffer(true);
     QGLWidget *glWidget = new QGLWidget(fmt);
     viewer.setViewport(glWidget);
     viewer.showFullScreen();
+    */
 
     return app.exec();
 }
